@@ -1,11 +1,15 @@
+import os
 import time
 
+from dotenv import load_dotenv
 from telethon.sync import TelegramClient
 from telethon.tl.functions.messages import GetHistoryRequest
 from telethon.tl.types import PeerChannel
 
-api_id = 'api_id'
-api_hash = 'api_hash'
+load_dotenv()
+
+api_id = os.getenv('API_ID')
+api_hash = os.getenv('API_HASH')
 client = TelegramClient('anon', api_id, api_hash)
 
 channel_username = 'канал'
@@ -45,7 +49,10 @@ async def main():
         time.sleep(1)
 
     client.disconnect()
-    print(f'Слово "{search_word}" упоминается {word_count} раз(а) в канале {channel_username}.')
+    print(
+        f'Слово "{search_word}" упоминается {word_count} '
+        f'раз(а) в канале {channel_username}.'
+    )
 
 
 with client:
